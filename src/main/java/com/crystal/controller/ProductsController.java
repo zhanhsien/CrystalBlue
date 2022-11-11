@@ -5,11 +5,9 @@ import com.crystal.entity.request.ProductRequest;
 import com.crystal.service.ProductsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.PathParam;
 import java.net.URI;
 import java.util.List;
 
@@ -18,14 +16,22 @@ import java.util.List;
 public class ProductsController {
     private final ProductsService service;
 
-    @RequestMapping(value = "/products", produces = { "application/json" }, consumes = { "application/json" }, method = RequestMethod.POST)
-    public ResponseEntity<Product> listProducts(@RequestBody ProductRequest request) {
+    //create product
+    @RequestMapping(value = "/products", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.POST)
+    public ResponseEntity<Product> createProducts(@RequestBody ProductRequest request) {
         Product response = service.create(request);
         return ResponseEntity.created(URI.create(String.valueOf(response.getId()))).body(response);
     }
-
-    @RequestMapping(value = "/products", produces = { "application/json" }, method = RequestMethod.GET)
-    public ResponseEntity<List<Product>> createProduct() {
+    //get product
+    @RequestMapping(value = "/products", produces = {"application/json"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> listProduct() {
         return ResponseEntity.ok(service.getAll());
     }
+    //update product
+    @RequestMapping(value = "/products/{id}", produces = {"application/json"}, consumes = {"application/json"}, method = RequestMethod.PUT)
+    public ResponseEntity<Product> updateProducts(@RequestBody ProductRequest request, @PathVariable("id") String id) {
+        Product response = service.update(request, id);
+        return ResponseEntity.ok(response);
+    }
+
 }

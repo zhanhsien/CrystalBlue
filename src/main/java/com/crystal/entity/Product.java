@@ -3,6 +3,7 @@ package com.crystal.entity;
 import com.crystal.entity.request.ProductRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,10 @@ import java.math.BigDecimal;
 @Entity
 @NoArgsConstructor
 public class Product {
-    private @Id @GeneratedValue long id;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     private String name;
     private String description;
     private BigDecimal price;

@@ -18,6 +18,20 @@ public class ProductsService {
         repository.save(product);
         return product;
     }
+    public Product update(ProductRequest request, String id) {
+
+        Product product = repository.getById(id);
+
+        product.setDescription(request.getDescription());
+        product.setPrice(request.getPrice());
+        product.setQuantity(request.getQuantity());
+        product.setName(request.getName());
+
+        repository.save(product);
+
+        return product;
+    }
+
 
     public List<Product> getAll() {
         return repository.findAll();
