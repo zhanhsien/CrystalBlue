@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +17,18 @@ public class ProductsService {
     public Product create(ProductRequest request) {
         Product product = new Product(request);
         repository.save(product);
+        return product;
+    }
+
+    public Product update(String id, ProductRequest request) {
+        Optional<Product> optional = repository.findById(id);
+        Product product = null;
+        if (optional.isPresent()) {
+            product = optional.get();
+            product.set(request);
+            repository.save(product);
+        }
+
         return product;
     }
 
