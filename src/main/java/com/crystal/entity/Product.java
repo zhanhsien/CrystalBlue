@@ -23,14 +23,11 @@ public class Product {
     private BigDecimal price;
     private int quantity;
 
-    public Product(String name, String description, BigDecimal price, int quantity) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
+    public Product(ProductRequest request) {
+        set(request);
     }
 
-    public Product(ProductRequest request) {
+    public void set(ProductRequest request) {
         name = request.getName();
         description = request.getDescription();
         price = request.getPrice();
