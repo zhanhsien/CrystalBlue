@@ -20,7 +20,7 @@ public class ProductsService {
     }
     public Product update(ProductRequest request, String id) {
 
-        Product product = repository.getById(id);
+        Product product = repository.getReferenceById(id);
 
         product.setDescription(request.getDescription());
         product.setPrice(request.getPrice());
