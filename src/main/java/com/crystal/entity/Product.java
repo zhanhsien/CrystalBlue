@@ -31,6 +31,10 @@ public class Product {
     }
 
     public Product(ProductRequest request) {
+        set(request);
+    }
+    
+    public void set(ProductRequest request) {
         name = request.getName();
         description = request.getDescription();
         price = request.getPrice();
